@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+<!-- 
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+-->
+
+	<!-- Interceptor 설정(정의) -->
+	<beans:bean id="boardInterceptor" class="com.spring.sInterceptor.interceptor.BoardInterceptor" />
+	<beans:bean id="memberInterceptor" class="com.spring.sInterceptor.interceptor.MemberInterceptor" />
+	
+	<interceptors>
+	  <interceptor>
+	  	<!-- 
+	    <mapping path="/board/boardList"/>
+	    <mapping path="/board/boardInput"/>
+	    <mapping path="/board/boardUpdate"/>
+	     -->
+	    
+	    <mapping path="/board/**"/>
+	    <!-- <exclude-mapping path="/board/boardList"/> -->
+	    
+	    <beans:ref bean="boardInterceptor" />
+	  </interceptor>
+	  <interceptor>
+	  	<mapping path="/member/**"/>
+	  	<exclude-mapping path="/member/login"/>
+	  	<exclude-mapping path="/member/join"/>
+	  	<beans:ref bean="memberInterceptor"/>
+	  </interceptor>
+	</interceptors>
+	
+
+</beans:beans>
